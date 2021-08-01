@@ -1,6 +1,6 @@
 {
-  "short_name": "ANFT-React",
-  "name": "ANFT-React sample",
+  "short_name": "Combook FE",
+  "name": "Combook FE sample",
   "icons": [
     {
       "src": "./assets/img/favicon.png",

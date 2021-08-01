@@ -1,28 +1,27 @@
-import { CSidebar, CSidebarClose } from "@coreui/react";
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../shared/reducers";
-import { toggleAside } from "./reducer";
+import React from 'react'
+import { useDispatch } from 'react-redux'
+import {
+  CSidebar,
+  CSidebarClose
+} from '@coreui/react'
+
+import { useTypedSelector } from '../store'
 
 const TheAside = () => {
-  // const show = useTypedSelector((state) => state.asideShow)
-  const dispatch = useDispatch();
-  const setState = (state: boolean) => dispatch(toggleAside(state));
-
-  const containerState = useSelector((state: RootState) => state.container);
-  const { asideShow } = containerState;
+  const show = useTypedSelector((state) => state.asideShow)
+  const dispatch = useDispatch()
+  const setState = (state: boolean) => dispatch({type: 'set', asideShow: state})
 
   return (
     <CSidebar
       aside
-      colorScheme="light"
-      size="lg"
+      colorScheme='light'
+      size='lg'
       overlaid
-      show={asideShow}
-      // onShowChange={(state: boolean) => setState(state)}
-      onShowChange={(val: boolean) => dispatch(toggleAside(val))}
+      show={show}
+      onShowChange={(state: boolean) => setState(state)}
     >
-      <CSidebarClose onClick={() => setState(false)} />
+      <CSidebarClose onClick={() => setState(false) } />
       {/*aside content*/}
       <div className="nav-underline">
         <div className="nav nav-tabs">
@@ -32,7 +31,7 @@ const TheAside = () => {
         </div>
       </div>
     </CSidebar>
-  );
-};
+  )
+}
 
-export default React.memo(TheAside);
+export default React.memo(TheAside)

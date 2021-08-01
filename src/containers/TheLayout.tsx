@@ -1,37 +1,30 @@
-import React from "react";
-import Particles from "react-particles-js";
-import { useSelector } from "react-redux";
-import { RouteComponentProps } from "react-router-dom";
-import { RootState } from "../shared/reducers";
-import { TheContent, TheFooter, TheHeader } from "./index";
+import React from 'react'
+import { useTypedSelector } from '../store'
+import {
+  TheContent,
+  TheSidebar,
+  TheAside,
+  TheFooter,
+  TheHeader
+} from './index'
 
-interface ITheLayout extends RouteComponentProps {}
-
-const TheLayout = (props: ITheLayout) => {
-  const containerState = useSelector((state: RootState) => state.container);
-  // const { loginSuccess, token } = useSelector((state: RootState) => state.authentication);
-  const { darkMode } = containerState;
-
-  // useEffect(() => {
-  //   if (loginSuccess && token) {
-  //     history.push("/dashboard");
-  //   }
-  // }, [loginSuccess]);
-
-  const classes = `c-app c-default-layout bg_register`;
-
+const TheLayout = () => {
+  const darkMode = useTypedSelector((state) => state.darkMode)
+  const classes = `c-app c-default-layout ${darkMode ? 'c-dark-theme' : ''}`
+    
   return (
     <div className={classes}>
-      <Particles style={{ filter: "blur(1px)" }} className="particles-js" />
+      <TheSidebar/>
+      <TheAside/>
       <div className="c-wrapper">
-        <TheHeader />
+        <TheHeader/>
         <div className="c-body">
-          <TheContent />
+          <TheContent/>
         </div>
-        <TheFooter />
+        <TheFooter/>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default TheLayout;
+export default TheLayout
