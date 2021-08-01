@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   CButton,
   CCard,
@@ -9,12 +9,11 @@ import {
   CJumbotron,
   CRow,
   CEmbed,
-  CEmbedItem
-} from '@coreui/react'
-import { DocsLink } from 'src/reusable'
+  CEmbedItem,
+} from '@coreui/react';
+//
 
 const Jumbotrons = () => {
-
   return (
     <>
       <CRow>
@@ -22,17 +21,24 @@ const Jumbotrons = () => {
           <CCard>
             <CCardHeader>
               Jumbotron
-              <DocsLink name="CJumbotron"/>
+              {/* <DocsLink name="CJumbotron"/> */}
             </CCardHeader>
             <CCardBody>
               <CJumbotron className="border">
                 <h1 className="display-3">Hello, world!</h1>
-                <p className="lead">This is a simple hero unit, a simple Jumbotron - style component for calling extra
-                  attention to featured content or information.</p>
-                <hr className="my-2" />
-                <p>It uses utility classes for typgraphy and spacing to space content out within the larger container.</p>
                 <p className="lead">
-                  <CButton color="primary" size="lg">Learn More</CButton>
+                  This is a simple hero unit, a simple Jumbotron - style component for
+                  calling extra attention to featured content or information.
+                </p>
+                <hr className="my-2" />
+                <p>
+                  It uses utility classes for typgraphy and spacing to space content out
+                  within the larger container.
+                </p>
+                <p className="lead">
+                  <CButton color="primary" size="lg">
+                    Learn More
+                  </CButton>
                 </p>
               </CJumbotron>
             </CCardBody>
@@ -48,7 +54,10 @@ const Jumbotrons = () => {
               <CJumbotron fluid>
                 <CContainer fluid>
                   <h1 className="display-3">Fluid jumbotron</h1>
-                  <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+                  <p className="lead">
+                    This is a modified jumbotron that occupies the entire horizontal space
+                    of its parent.
+                  </p>
                 </CContainer>
               </CJumbotron>
             </CCardBody>
@@ -58,19 +67,17 @@ const Jumbotrons = () => {
       <CRow>
         <CCol>
           <CCard>
-            <CCardHeader>
-              Embed
-            </CCardHeader>
+            <CCardHeader>Embed</CCardHeader>
             <CCardBody>
               <CEmbed>
-                <CEmbedItem src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0"/>
+                <CEmbedItem src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" />
               </CEmbed>
             </CCardBody>
           </CCard>
         </CCol>
       </CRow>
     </>
-  )
-}
+  );
+};
 
-export default Jumbotrons
+export default Jumbotrons;
