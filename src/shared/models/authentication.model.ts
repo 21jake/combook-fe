@@ -1,0 +1,34 @@
+export interface IUser {
+  activated: boolean;
+  activationKey: string;
+  address: string;
+  affiliate: string;
+  birthday: any;
+  commission: number;
+  createdBy: any;
+  createdDate: Date;
+  dueDate: any;
+  email: string;
+  facebookId: string;
+  fcmToken: string;
+  firstName: string;
+  googleId: string;
+  id: string;
+  idCard: string;
+  imageUrl: string;
+  isExpert: boolean;
+  langKey: string;
+  lastModifiedBy: Date;
+  lastModifiedDate: Date;
+  lastName: string;
+  login: string;
+  otpExpire: string;
+  parentId: string;
+  phone: string;
+  referencer: string;
+  resetDate: Date;
+  resetKey: string;
+  toDate: Date;
+  type: string;
+  walletAddress: string;
+}

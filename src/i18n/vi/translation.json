@@ -1,0 +1,55 @@
+{
+  "anftApp": {
+    "global": {
+      "loginSucessfull": "Đăng nhập thành công",
+      "registerSucessfull": "Đăng ký thành công",
+      "logout": "Đăng xuất"
+    },
+    "headerComponent": {
+      "language": "Ngôn ngữ",
+      "english": "Tiếng Anh",
+      "vietnamese": "Tiếng Việt"
+    },
+    "loginPage": {
+      "goBack": "Quay lại",
+      "login": "Đăng nhập",
+      "username": "Tên đăng nhập",
+      "password": "Mật khẩu",
+      "forgotPassword": "Quên mật khẩu",
+      "noAccount": "Bạn chưa có tài khoản",
+      "registerHere": "Đăng ký tại đây",
+      "usernameError": "Vui lòng nhập tên đăng nhập",
+      "passwordError": "Vui lòng nhập mật khẩu"
+    },
+    "registerPage": {
+      "goBack": "Quay lại",
+      "register": "Đăng ký",
+      "lastName": "Họ",
+      "firstName": "Tên",
+      "username": "Tên đăng nhập",
+      "nationalId": "CMTND/CCCD/HC",
+      "email": "Email",
+      "phoneNumber": "SĐT",
+      "password": "Mật khẩu",
+      "confirmPassword": "Nhập lại mật khẩu",
+      "registerText": "Bạn nên đăng ký từ nhóm phát triển để được hướng dẫn và nhận thưởng",
+      "warningText": {
+        "firstNameInvalid": "Tên không hợp lệ!",
+        "firstNameEmpty": "Vui lòng nhập tên",
+        "lastNameInvalid": "Họ không hợp lệ!",
+        "lastNameEmpty": "Vui lòng nhập Họ",
+        "nationalIdInvalid": "CMTND/CCCD/HC không hợp lệ!",
+        "nationalIdEmpty": "Vui lòng nhập CMTND/CCCD/HC",
+        "usernameInvalid": "Tên đăng nhập không hợp lệ!",
+        "usernameEmpty": "Vui lòng nhập Tên đăng nhập",
+        "emailInvalid": "Email không hợp lệ!",
+        "emailEmpty": "Vui lòng nhập Email",
+        "phoneNumberInvalid": "Số điện thoại không hợp lệ",
+        "phoneNumberEmpty": "Vui lòng nhập số điện thoại",
+        "passwordEmpty": "Vui lòng nhập mật khẩu",
+        "confirmPasswordEmpty": "Vui lòng nhập lại mật khẩu",
+        "confirmPasswordNotMatch": "Mật khẩu không trùng khớp"
+      }
+    }
+  }
+}

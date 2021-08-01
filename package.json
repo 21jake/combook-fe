@@ -1,0 +1,94 @@
+{
+  "name": "Combook-FE",
+  "version": "3.0.1",
+  "description": "Combook-FE",
+  "author": {
+    "name": "Core UI",
+    "url": "https://coreui.io",
+    "github": "https://github.com/coreui",
+    "twitter": "https://twitter.com/core_ui"
+  },
+  "contributors": [
+    {
+      "name": "Core UI Team",
+      "url": "https://github.com/orgs/coreui/people"
+    }
+  ],
+  "homepage": ".",
+  "copyright": "Copyright 2017-2020 creativeLabs Łukasz Holeczek",
+  "license": "https://coreui.io/pro/license/",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:coreui/coreui-pro-react-admin-template-starter-ts.git"
+  },
+  "dependencies": {
+    "@coreui/coreui-pro": "^3.2.2",
+    "@coreui/icons": "^2.0.0-beta.4",
+    "@coreui/icons-react": "^1.0.2",
+    "@coreui/react": "^3.2.3",
+    "@fortawesome/fontawesome-svg-core": "^1.2.35",
+    "@fortawesome/free-solid-svg-icons": "^5.15.3",
+    "@fortawesome/react-fontawesome": "^0.1.14",
+    "@iconify-icons/emojione": "^1.1.0",
+    "@reduxjs/toolkit": "^1.6.1",
+    "@testing-library/jest-dom": "~5.11.3",
+    "@testing-library/react": "~10.4.8",
+    "@testing-library/user-event": "~12.1.1",
+    "@types/jest": "~26.0.9",
+    "@types/node": "~14.0.27",
+    "@types/react": "~16.9.46",
+    "@types/react-dom": "~16.9.8",
+    "@types/react-redux": "~7.1.9",
+    "@types/react-router-dom": "~5.1.5",
+    "axios": "^0.21.1",
+    "formik": "^2.2.9",
+    "i18next": "^20.3.5",
+    "i18next-browser-languagedetector": "^6.1.2",
+    "i18next-http-backend": "^1.2.8",
+    "jquery": "^3.6.0",
+    "node-sass": "^4.14.1",
+    "react": "~16.13.1",
+    "react-avatar": "^3.10.0",
+    "react-dom": "~16.13.1",
+    "react-i18next": "^11.11.4",
+    "react-particles-js": "^3.5.3",
+    "react-redux": "~7.2.1",
+    "react-router-config": "~5.1.1",
+    "react-router-dom": "~5.2.0",
+    "react-scripts": "~3.4.2",
+    "react-scripts-ts": "~3.1.0",
+    "react-toastify": "^7.0.4",
+    "redux": "~4.0.5",
+    "tsparticles": "^1.32.0",
+    "typescript": "~3.9.7",
+    "yup": "^0.32.9"
+  },
+  "scripts": {
+    "start": "set PORT=3006 && react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "zip": "git archive -o coreui-pro-react-admin-template-starter-ts-v$npm_package_version.zip -9 HEAD"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@iconify-icons/bx": "^1.1.0",
+    "@iconify/react": "^3.0.0-beta.1",
+    "@types/jquery": "^3.5.6"
+  }
+}
