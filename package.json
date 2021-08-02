@@ -30,7 +30,6 @@
     "@fortawesome/fontawesome-svg-core": "^1.2.35",
     "@fortawesome/free-solid-svg-icons": "^5.15.3",
     "@fortawesome/react-fontawesome": "^0.1.14",
-    "@iconify-icons/emojione": "^1.1.0",
     "@reduxjs/toolkit": "^1.6.1",
     "@testing-library/jest-dom": "~5.11.3",
     "@testing-library/react": "~10.4.8",
@@ -43,16 +42,10 @@
     "@types/react-router-dom": "~5.1.5",
     "axios": "^0.21.1",
     "formik": "^2.2.9",
-    "i18next": "^20.3.5",
-    "i18next-browser-languagedetector": "^6.1.2",
-    "i18next-http-backend": "^1.2.8",
-    "jquery": "^3.6.0",
     "node-sass": "^4.14.1",
     "react": "~16.13.1",
     "react-avatar": "^3.10.0",
     "react-dom": "~16.13.1",
-    "react-i18next": "^11.11.4",
-    "react-particles-js": "^3.5.3",
     "react-redux": "~7.2.1",
     "react-router-config": "~5.1.1",
     "react-router-dom": "~5.2.0",
@@ -60,12 +53,11 @@
     "react-scripts-ts": "~3.1.0",
     "react-toastify": "^7.0.4",
     "redux": "~4.0.5",
-    "tsparticles": "^1.32.0",
     "typescript": "~3.9.7",
     "yup": "^0.32.9"
   },
   "scripts": {
-    "start": "set PORT=3006 && react-scripts start",
+    "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
@@ -87,9 +79,6 @@
     ]
   },
   "devDependencies": {
-    "@iconify-icons/bx": "^1.1.0",
-    "@iconify/react": "^3.0.0-beta.1",
-    "@types/jquery": "^3.5.6",
     "prettier": "^2.3.2"
   }
 }
