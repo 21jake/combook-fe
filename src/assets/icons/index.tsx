@@ -1,21 +1,28 @@
-import { sygnet } from './sygnet'
-import { logo } from './logo'
-import { logoNegative } from './logo-negative'
+import { sygnet } from './sygnet';
+import { logo } from './logo';
+import { logoNegative } from './logo-negative';
 
 import {
   cilApplicationsSettings,
   cilSpeedometer,
   cilSun,
-  cilMoon
-} from '@coreui/icons/js/free'
+  cilMoon,
+} from '@coreui/icons/js/free';
 
-export const icons = Object.assign({}, {
-  sygnet,
-  logo,
-  logoNegative
-}, {
-  cilApplicationsSettings,
-  cilSpeedometer,
-  cilSun,
-  cilMoon
-})
+import { cibElasticStack } from '@coreui/icons-pro';
+
+export const icons = Object.assign(
+  {},
+  {
+    sygnet,
+    logo,
+    logoNegative,
+  },
+  {
+    cilApplicationsSettings,
+    cilSpeedometer,
+    cilSun,
+    cilMoon,
+    cibElasticStack,
+  }
+);

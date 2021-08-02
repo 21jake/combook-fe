@@ -1,30 +1,37 @@
-import React from 'react'
-import { useTypedSelector } from '../store'
-import {
-  TheContent,
-  TheSidebar,
-  TheAside,
-  TheFooter,
-  TheHeader
-} from './index'
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RouteComponentProps } from 'react-router-dom';
+import { RootState } from '../shared/reducers';
+import { TheContent, TheSidebar, TheAside, TheFooter, TheHeader } from './index';
 
-const TheLayout = () => {
-  const darkMode = useTypedSelector((state) => state.darkMode)
-  const classes = `c-app c-default-layout ${darkMode ? 'c-dark-theme' : ''}`
-    
+interface ITheLayout extends RouteComponentProps {}
+
+const TheLayout = ({ history }: ITheLayout) => {
+  const containerState = useSelector((state: RootState) => state.container);
+  // const { loginSuccess, token } = useSelector((state: RootState) => state.authentication);
+  const { darkMode } = containerState;
+
+  // useEffect(() => {
+  //   if (loginSuccess && token) {
+  //     history.push('/dashboard');
+  //   }
+  // }, [loginSuccess]);
+
+  const classes = `c-app c-default-layout ${darkMode ? 'c-dark-theme' : ''}`;
+
   return (
     <div className={classes}>
-      <TheSidebar/>
-      <TheAside/>
+      <TheSidebar />
+      <TheAside />
       <div className="c-wrapper">
-        <TheHeader/>
+        <TheHeader />
         <div className="c-body">
-          <TheContent/>
+          <TheContent />
         </div>
-        <TheFooter/>
+        {/* <TheFooter /> */}
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TheLayout
+export default TheLayout;
