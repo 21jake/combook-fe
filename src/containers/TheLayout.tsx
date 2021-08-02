@@ -8,14 +8,14 @@ interface ITheLayout extends RouteComponentProps {}
 
 const TheLayout = ({ history }: ITheLayout) => {
   const containerState = useSelector((state: RootState) => state.container);
-  // const { loginSuccess, token } = useSelector((state: RootState) => state.authentication);
+  const { loginSuccess, token } = useSelector((state: RootState) => state.authentication);
   const { darkMode } = containerState;
 
-  // useEffect(() => {
-  //   if (loginSuccess && token) {
-  //     history.push('/dashboard');
-  //   }
-  // }, [loginSuccess]);
+  useEffect(() => {
+    if (loginSuccess && token) {
+      history.push('/dashboard');
+    }
+  }, [loginSuccess, token, history]);
 
   const classes = `c-app c-default-layout ${darkMode ? 'c-dark-theme' : ''}`;
 
@@ -28,7 +28,7 @@ const TheLayout = ({ history }: ITheLayout) => {
         <div className="c-body">
           <TheContent />
         </div>
-        {/* <TheFooter /> */}
+        <TheFooter />
       </div>
     </div>
   );

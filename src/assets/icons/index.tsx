@@ -7,6 +7,7 @@ import {
   cilSpeedometer,
   cilSun,
   cilMoon,
+  cilAccountLogout,
 } from '@coreui/icons/js/free';
 
 import { cibElasticStack } from '@coreui/icons-pro';
@@ -24,5 +25,7 @@ export const icons = Object.assign(
     cilSun,
     cilMoon,
     cibElasticStack,
+    cilAccountLogout,
   }
 );
+// cil-account-logout
