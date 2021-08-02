@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import { getCookie } from '../shared/helpers';
 
 import { SERVER_API_URL } from './constants';
@@ -19,7 +19,7 @@ const onRequestSuccess = (config: any) => {
   }
   return config;
 };
-const onResponseSuccess = (response: any) => response;
+const onResponseSuccess = (response: AxiosResponse) => response;
 
 const onResponseError = (err: any) => {
   const status = err.status || (err.response ? err.response.status : 0);

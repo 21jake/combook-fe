@@ -8,6 +8,8 @@ import {
   cilSun,
   cilMoon,
   cilAccountLogout,
+  cilScrubber,
+  cilArrowLeft,
 } from '@coreui/icons/js/free';
 
 import { cibElasticStack } from '@coreui/icons-pro';
@@ -26,6 +28,8 @@ export const icons = Object.assign(
     cilMoon,
     cibElasticStack,
     cilAccountLogout,
+    cilScrubber,
+    cilArrowLeft,
   }
 );
 // cil-account-logout

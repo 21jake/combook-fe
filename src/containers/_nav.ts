@@ -14,7 +14,7 @@ export default [
   {
     _tag: 'CSidebarNavItem',
     name: 'Quản lý khối',
-    to: '/grade',
+    to: '/grades',
     icon: 'cib-elastic-stack',
   },
   {

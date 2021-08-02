@@ -1,3 +1,7 @@
+import { AxiosResponse } from 'axios';
+import { useState, useEffect } from 'react';
+import { IGetEntitiesResp } from './enum/shared-interfaces';
+
 export const setCookie = (cookieKey: string, cookieValue: string, expirationDays: number): void => {
   let expiryDate = '';
 
@@ -31,3 +35,25 @@ export const getCookie = (cookieKey: string): string | undefined => {
 export const eraseCookie = (name: string): void => {
   document.cookie = name + '=; Max-Age=-99999999;';
 };
+
+export const useDebounce = (value: string, delay: number) => {
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value]);
+
+  return debouncedValue;
+};
+
+export const hndleGetManyResp = <T>(response: AxiosResponse): IGetEntitiesResp<T> =>
+  response.data.data;
+
+export const hndleGetOneResp = <T>(response: AxiosResponse): T => response.data.data.entity;
