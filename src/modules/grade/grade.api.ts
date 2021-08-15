@@ -53,7 +53,6 @@ export const updateEntity = createAsyncThunk(
       if (_id) {
         thunkAPI.dispatch(gradeUpdateOne({ id: _id, changes: entity }));
       }
-
       return result.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response.data);

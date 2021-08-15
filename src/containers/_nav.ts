@@ -19,6 +19,12 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Quản lý lớp',
+    to: '/classes',
+    icon: 'cil-room',
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Đăng xuất',
     icon: 'cil-account-logout',
     onClick: handleLogout,
