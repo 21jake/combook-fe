@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { eraseCookie } from '../../shared/helpers';
-import { IUser } from '../../shared/models/user.model';
+import { IAuth } from '../../shared/models/auth.model';
 import { login, verify, logout } from './auth.api';
 
 interface IAuthenticationState {
   loginSuccess: boolean;
   loading: boolean;
-  user: IUser | null;
+  user: IAuth | null;
   token: string | null;
   errorMessage: string | null;
 }
@@ -47,7 +47,7 @@ const authenticationSlice = createSlice({
       state.loginSuccess = false;
       state.loading = false;
     },
-    [verify.fulfilled.type]: (state, { payload }: PayloadAction<IUser>) => {
+    [verify.fulfilled.type]: (state, { payload }: PayloadAction<IAuth>) => {
       state.user = payload;
       state.loginSuccess = true;
       state.errorMessage = null;
@@ -59,7 +59,6 @@ const authenticationSlice = createSlice({
     },
     [logout.fulfilled.type]: (state, { payload }: PayloadAction<undefined>) => {
       eraseCookie('jwt');
-
       state.loginSuccess = false;
       state.errorMessage = null;
       state.loading = false;

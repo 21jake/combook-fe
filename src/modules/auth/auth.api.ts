@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../config/axios-interceptor';
-import { setCookie } from '../../shared/helpers';
+import { hndleVerifyResp, setCookie } from '../../shared/helpers';
+import { IAuth } from '../../shared/models/auth.model';
 
 export interface IAuthenticateBody {
   email: string;
@@ -22,7 +23,8 @@ export const login = createAsyncThunk('login', async (body: IAuthenticateBody, t
 export const verify = createAsyncThunk('verify', async (_, thunkAPI) => {
   try {
     const result = await axios.get(`${prefix}/verify`);
-    return result.data;
+    const entity = hndleVerifyResp<IAuth>(result);
+    return entity;
   } catch (error) {
     return thunkAPI.rejectWithValue(error.response.data);
   }

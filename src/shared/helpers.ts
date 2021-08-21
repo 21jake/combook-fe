@@ -57,3 +57,5 @@ export const hndleGetManyResp = <T>(response: AxiosResponse): IGetEntitiesResp<T
   response.data.data;
 
 export const hndleGetOneResp = <T>(response: AxiosResponse): T => response.data.data.entity;
+
+export const hndleVerifyResp = <T>(response: AxiosResponse): T => response.data.data.user;

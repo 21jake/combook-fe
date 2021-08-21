@@ -23,7 +23,6 @@ const App = () => {
     if (user && token) {
       ToastSuccess('Đăng nhập thành công');
 
-      // SEND FIREBASE TOKEN TO BACKEND WHEN USER SUCCESSFULLY LOGGIN
     }
   }, [user, token]);
 

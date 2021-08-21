@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ToastError, ToastSuccess } from '../../shared/components/Toast';
 import { RouteComponentProps } from 'react-router-dom';
-import { fetching, selectEntityById } from './class.reducer';
+import { fetching, selectEntityById } from './subject.reducer';
 import { CButton, CCardBody, CInvalidFeedback } from '@coreui/react';
 import { RootState } from '../../shared/reducers';
 import {
@@ -18,34 +18,33 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { Formik } from 'formik';
-import { getEntity, createEntity, updateEntity } from './class.api';
-import { getEntities } from '../grade/grade.api';
-import { gradeSelectors } from '../grade/grade.reducer';
-import { resetEntity } from './class.reducer';
+import {
+  getEntity,
+  createEntity,
+  //  , getEntityModels,
+  updateEntity,
+} from './subject.api';
+import { resetEntity } from './subject.reducer';
 import * as Yup from 'yup';
-import { INewClass } from '../../shared/models/class.model';
-import CustomSelect from '../../shared/components/CustomSelect';
-import { IGrade } from '../../shared/models/grade.model';
+import { INewSubject } from '../../shared/models/subject.model';
 
-interface IClassUpdateParams {
+interface ISubjectUpdateParams {
   [x: string]: string;
 }
-interface IClassUpdate extends RouteComponentProps<IClassUpdateParams> {}
+interface ISubjectUpdate extends RouteComponentProps<ISubjectUpdateParams> {}
 
-const ClassUpdate = ({ match, history }: IClassUpdate) => {
+const SubjectUpdate = ({ match, history }: ISubjectUpdate) => {
   const dispatch = useDispatch();
 
-  const { id } = match.params;
+  const { _id } = match.params;
 
-  const newClassEntity: INewClass = {
+  const newSubjectEntity: INewSubject = {
     name: '',
-    grade: undefined,
   };
 
-  const grades = useSelector(gradeSelectors.selectAll);
-  const classEntity = useSelector(selectEntityById(id));
+  const subjectEntity = useSelector(selectEntityById(_id));
 
-  const { initialState } = useSelector((state: RootState) => state.class);
+  const { initialState } = useSelector((state: RootState) => state.subject);
   const { loading, updateEntitySuccess, errorMessage } = initialState;
 
   const handleGoBack = () => {
@@ -54,11 +53,13 @@ const ClassUpdate = ({ match, history }: IClassUpdate) => {
 
   // HANDLE WHEN USER REFRESH (NO ENTITY, ID AVAILABLE)
   useEffect(() => {
-    if (id) {
-      dispatch(getEntity(id));
+    if (!subjectEntity && _id) {
+      dispatch(getEntity(_id));
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
+  }, [subjectEntity, _id]);
+
+
 
   useEffect(() => {
     if (errorMessage) {
@@ -71,57 +72,43 @@ const ClassUpdate = ({ match, history }: IClassUpdate) => {
   useEffect(() => {
     if (updateEntitySuccess) {
       window.scrollTo(0, 0);
-      ToastSuccess(`${id ? 'Cập nhật' : 'Tạo mới'} Lớp thành công`);
+      console.log('inside');
+      ToastSuccess(`${_id ? 'Cập nhật' : 'Tạo mới'} môn học thành công!`);
       handleGoBack();
       dispatch(resetEntity());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateEntitySuccess]);
 
-  useEffect(() => {
-    dispatch(getEntities({ limit: 50, page: 0 }));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const validationSchema = Yup.object().shape({
     name: Yup.string()
       .min(1, 'Tên không hợp lệ!')
       .max(50, 'Tên không hợp lệ!')
       .required('Vui lòng nhập tên'),
-    grade: Yup.object().shape({}).nullable().required('Vui lòng chọn khối'),
   });
-
 
   return (
     <CRow>
       <CCol xs="12">
         <CCard>
           <CCardHeader>
-            <p className={`lead bold-600 m-0`}> {id ? 'Cập nhật ' : 'Tạo mới '} Lớp</p>
+            <p className={`lead bold-600 m-0`}>{_id ? 'Cập nhật ' : 'Tạo mới '} Môn học</p>
           </CCardHeader>
           <Formik
             enableReinitialize
             validationSchema={validationSchema}
-            initialValues={classEntity || newClassEntity}
-            onSubmit={(rawValues) => {
+            initialValues={subjectEntity || newSubjectEntity}
+            onSubmit={(rawValues, { setSubmitting }) => {
+              setSubmitting(true);
               dispatch(fetching());
-              if (id) {
+              if (_id) {
                 dispatch(updateEntity(rawValues));
               } else {
                 dispatch(createEntity(rawValues));
               }
             }}
           >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              setFieldTouched,
-              setFieldValue,
-            }) => (
+            {({ values, errors, touched, handleChange, handleBlur, handleSubmit }) => (
               <>
                 {/* {JSON.stringify(errors)} */}
                 <CForm className="form-horizontal" onSubmit={handleSubmit}>
@@ -129,10 +116,10 @@ const ClassUpdate = ({ match, history }: IClassUpdate) => {
                     <CFormGroup row>
                       <CCol md="3">
                         <CLabel className="bold-600" htmlFor="name">
-                          Tên lớp
+                          Tên khối
                         </CLabel>
                       </CCol>
-                      <CCol xs="12" md="9">
+                      <CCol xs="12" md="9" className="p-0">
                         <CInput
                           onChange={handleChange}
                           id="name"
@@ -142,39 +129,6 @@ const ClassUpdate = ({ match, history }: IClassUpdate) => {
                           onBlur={handleBlur}
                         />
                         <CInvalidFeedback>{errors.name}</CInvalidFeedback>
-                      </CCol>
-                    </CFormGroup>
-
-                    <CFormGroup row>
-                      <CCol md="3">
-                        <CLabel className="bold-600" htmlFor="grade">
-                          Khối
-                        </CLabel>
-                      </CCol>
-                      <CCol xs="12" md="9">
-                        <CustomSelect
-                          onBlur={() => setFieldTouched('grade')}
-                          onChange={(grade: IGrade) => setFieldValue('grade', grade)}
-                          value={{
-                            ...values.grade,
-                            label: values.grade?.name,
-                            value: values.grade?._id,
-                          }}
-                          options={grades.map(({ name, _id }) => ({
-                            label: name,
-                            value: _id,
-                            _id,
-                            name,
-                          }))}
-                          defaultValue={null}
-                          isMulti={false}
-                          isDisabled={false}
-                        />
-                        <CInvalidFeedback
-                          className={!!errors.grade && touched.grade ? 'd-block' : 'd-none'}
-                        >
-                          {errors.grade}
-                        </CInvalidFeedback>
                       </CCol>
                     </CFormGroup>
                   </CCardBody>
@@ -196,4 +150,4 @@ const ClassUpdate = ({ match, history }: IClassUpdate) => {
   );
 };
 
-export default ClassUpdate;
+export default SubjectUpdate;
