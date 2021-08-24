@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { fetching } from './semester.reducer';
-import { CButton, CCardBody, CCollapse, CDataTable, CTooltip } from '@coreui/react';
+import { fetching, resetEntity } from './semester.reducer';
+import { CButton, CCardBody, CDataTable, CTooltip } from '@coreui/react';
 import { RootState } from '../../shared/reducers';
 import { semesterSelectors } from './semester.reducer';
 import {
@@ -11,7 +11,7 @@ import {
   // getEntityModels, removeEntity
 } from './semester.api';
 import { ToastError, ToastSuccess } from '../../shared/components/Toast';
-import { faEyeSlash, faEye, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { ISemester } from '../../shared/models/semester.model';
 
@@ -23,7 +23,6 @@ const Semester = (props: ISemesterProps) => {
   const { selectAll } = semesterSelectors;
   const allSemesters = useSelector(selectAll);
   const { initialState } = useSelector((state: RootState) => state.semester);
-  // const { loading, deleteEntitySuccess, errorMessage, totalItems } = initialState;
   const { loading, deleteEntitySuccess, errorMessage } = initialState;
 
   const params = {
@@ -39,25 +38,14 @@ const Semester = (props: ISemesterProps) => {
 
   useEffect(() => {
     if (deleteEntitySuccess) {
-      return ToastSuccess('Xóa khối thành công!');
+      dispatch(resetEntity());
+      return ToastSuccess('Xóa học kì thành công!');
     }
     if (errorMessage) {
       return ToastError(errorMessage);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleteEntitySuccess, errorMessage]);
-
-  const [details, setDetails] = useState<Array<any>>([]);
-
-  const toggleDetails = (index: string) => (): void => {
-    const position = details.indexOf(index);
-    let newDetails = details.slice();
-    if (position !== -1) {
-      newDetails.splice(position, 1);
-    } else {
-      newDetails = [...details, index];
-    }
-    setDetails(newDetails);
-  };
 
   const fields = [
     { key: 'id', _style: { width: '30%' }, label: 'STT' },
@@ -91,18 +79,6 @@ const Semester = (props: ISemesterProps) => {
             show_details: (item: ISemester) => {
               return (
                 <td className="d-flex">
-                  <CTooltip content="Xem chi tiết" placement="bottom">
-                    <CButton
-                      color="primary"
-                      variant="outline"
-                      shape="square"
-                      size="sm"
-                      onClick={toggleDetails(item._id)}
-                    >
-                      <FontAwesomeIcon icon={details.includes(item._id) ? faEyeSlash : faEye} />
-                    </CButton>
-                  </CTooltip>
-
                   <CTooltip content="Cập nhật" placement="bottom">
                     <CButton
                       color="primary"
@@ -116,40 +92,25 @@ const Semester = (props: ISemesterProps) => {
                       <FontAwesomeIcon icon={faPen} />
                     </CButton>
                   </CTooltip>
-                </td>
-              );
-            },
 
-            details: (item: ISemester) => {
-              return (
-                <CCollapse show={details.includes(item._id)}>
-                  <CCardBody>
-                    <h4>Các lớp thuộc {item.name}</h4>
-
+                  <CTooltip content="Xóa" placement="bottom">
                     <CButton
-                      size="sm"
                       color="danger"
+                      variant="outline"
+                      shape="square"
+                      size="sm"
                       onClick={() => dispatch(removeEntity(item._id))}
-                      disabled={loading}
+                      className={`ml-1 `}
+                      // className={`ml-1 ${handleItemVisibility(Authorities)}`}
                     >
-                      Xóa
+                      <FontAwesomeIcon icon={faTrash} />
                     </CButton>
-                  </CCardBody>
-                </CCollapse>
+                  </CTooltip>
+                </td>
               );
             },
           }}
         />
-        {/* {totalPages > 1 ? (
-          <CPagination
-            disabled={loading}
-            activePage={filterState.page + 1}
-            pages={totalPages}
-            onActivePageChange={handlePaginationChange}
-          />
-        ) : (
-          ''
-        )} */}
       </CCardBody>
     </>
   );
