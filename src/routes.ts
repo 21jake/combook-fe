@@ -14,6 +14,9 @@ const SubjectUpdate = React.lazy(() => import('./modules/subject/SubjectUpdate')
 const Class = React.lazy(() => import('./modules/class/Class'));
 const ClassUpdate = React.lazy(() => import('./modules/class/ClassUpdate'));
 
+const Semester = React.lazy(() => import('./modules/semester/Semester'));
+const SemesterUpdate = React.lazy(() => import('./modules/semester/SemesterUpdate'));
+
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
 const routes = [
   { path: '/', exact: true, name: 'Home' },
@@ -34,6 +37,10 @@ const routes = [
   { path: '/classes', exact: true, name: 'Quản lý lớp', component: Class },
   { path: '/classes/create', name: 'Thêm mới', component: ClassUpdate },
   { path: '/classes/:id/update', name: 'Cập nhật', component: ClassUpdate },
+
+  { path: '/semesters', exact: true, name: 'Quản lý học kỳ', component: Semester },
+  { path: '/semesters/create', name: 'Thêm mới', component: SemesterUpdate },
+  { path: '/semesters/:id/update', name: 'Cập nhật', component: SemesterUpdate },
 ];
 
 export default routes;

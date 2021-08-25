@@ -37,9 +37,17 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Quản lý học kỳ',
+    to:'/semesters',
+    icon: 'cil-calendar',
+    
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Đăng xuất',
     icon: 'cil-account-logout',
     onClick: handleLogout,
   },
+  
 ];
 // cibElasticStack

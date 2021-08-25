@@ -13,6 +13,7 @@ import {
   cilRoom,
   cilBook,
   cilPeople,
+  cilCalendar,
 } from '@coreui/icons/js/free';
 
 import { cibElasticStack } from '@coreui/icons-pro';
@@ -35,7 +36,8 @@ export const icons = Object.assign(
     cilArrowLeft,
     cilRoom,
     cilBook,
-    cilPeople
+    cilPeople,
+    cilCalendar
   }
 );
 // cil-account-logout
