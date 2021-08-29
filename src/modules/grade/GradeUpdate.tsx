@@ -77,7 +77,6 @@ const GradeUpdate = ({ match, history }: IGradeUpdate) => {
   useEffect(() => {
     if (updateEntitySuccess) {
       window.scrollTo(0, 0);
-      console.log('inside');
       ToastSuccess(`${_id ? 'Cập nhật' : 'Tạo mới'} khối thành công!`);
       handleGoBack();
       dispatch(resetEntity());

@@ -40,7 +40,12 @@ export default [
     name: 'Quản lý học kỳ',
     to:'/semesters',
     icon: 'cil-calendar',
-    
+  },
+  {
+    _tag: 'CSidebarNavItem',
+    name: 'Kết quả học tập',
+    to:'/results',
+    icon: 'cil-pencil',
   },
   {
     _tag: 'CSidebarNavItem',

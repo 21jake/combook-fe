@@ -101,7 +101,7 @@ const UserUpdate = ({ match, history }: IUserUpdate) => {
     name: Yup.string()
       .min(1, 'Tên không hợp lệ!')
       .max(50, 'Tên không hợp lệ!')
-      .matches(/^[A-Za-z ]*$/, 'Tên không hợp lệ')
+      .matches(/^[a-eghik-vxyàáâãèéêìíòóôõùúýỳỹỷỵựửữừứưụủũợởỡờớơộổỗồốọỏịỉĩệểễềếẹẻẽặẳẵằắăậẩẫầấạảđ₫A-EGHIK-VXYÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚÝỲỸỶỴỰỬỮỪỨƯỤỦŨỢỞỠỜỚƠỘỔỖỒỐỌỎỊỈĨỆỂỄỀẾẸẺẼẶẲẴẰẮĂẬẨẪẦẤẠẢĐ₫]/, 'Tên không hợp lệ')
       .required('Vui lòng nhập tên'),
     email: Yup.string().email('Định dạng email không chính xác').required('Vui lòng nhập email'),
     role: Yup.string().required('Vui lòng chọn vai trò'),

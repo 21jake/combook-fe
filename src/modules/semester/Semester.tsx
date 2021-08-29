@@ -48,9 +48,10 @@ const Semester = (props: ISemesterProps) => {
   }, [deleteEntitySuccess, errorMessage]);
 
   const fields = [
-    { key: 'id', _style: { width: '30%' }, label: 'STT' },
-    { key: 'name', _style: { width: '40%' }, label: 'Học kỳ' },
-    { key: 'fee', _style: { width: '30%' }, label: 'Học phí' },
+    { key: 'id', _style: { width: '25%' }, label: 'STT' },
+    { key: 'grade', _style: { width: '25%' }, label: 'Khối' },
+    { key: 'name', _style: { width: '25%' }, label: 'Học kỳ' },
+    { key: 'fee', _style: { width: '25%' }, label: 'Học phí' },
     {
       key: 'show_details',
       label: '',
@@ -58,6 +59,8 @@ const Semester = (props: ISemesterProps) => {
       filter: false,
     },
   ];
+
+  console.log(allSemesters, 'allSemesters');
 
   return (
     <>
@@ -109,6 +112,11 @@ const Semester = (props: ISemesterProps) => {
                 </td>
               );
             },
+            grade: (item: ISemester) => {
+              return (
+                <td>{item.grade?.name || "Không xác định"}</td>
+              )
+            }
           }}
         />
       </CCardBody>

@@ -6,6 +6,7 @@ import subject from '../../modules/subject/subject.reducer';
 import user from '../../modules/user/user.reducer';
 import classReducer from '../../modules/class/class.reducer';
 import semester from '../../modules/semester/semester.reducer'
+import result from '../../modules/result/result.reducer'
 
 const rootReducer = combineReducers({
   container,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   subject,
   class: classReducer,
   user,
-  semester
+  semester,
+  result
 });
 export type RootState = ReturnType<typeof rootReducer>;
 

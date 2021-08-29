@@ -72,7 +72,6 @@ const SubjectUpdate = ({ match, history }: ISubjectUpdate) => {
   useEffect(() => {
     if (updateEntitySuccess) {
       window.scrollTo(0, 0);
-      console.log('inside');
       ToastSuccess(`${_id ? 'Cập nhật' : 'Tạo mới'} môn học thành công!`);
       handleGoBack();
       dispatch(resetEntity());
