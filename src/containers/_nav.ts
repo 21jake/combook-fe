@@ -43,6 +43,12 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Quản lý học phí',
+    to:'/tuitions',
+    icon: 'cil-money',
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Kết quả học tập',
     to:'/results',
     icon: 'cil-pencil',

@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { fetching } from './class.reducer';
-import { CButton, CCardBody, CCollapse, CDataTable, CTooltip } from '@coreui/react';
+import { fetching, resetEntity } from './tuition.reducer';
+import { CButton, CCardBody, CDataTable, CTooltip, CCollapse } from '@coreui/react';
 import { RootState } from '../../shared/reducers';
-import { classSelectors } from './class.reducer';
+import { tuitionSelectors } from './tuition.reducer';
 import {
   getEntities,
   removeEntity,
   // getEntityModels, removeEntity
-} from './class.api';
+} from './tuition.api';
 import { ToastError, ToastSuccess } from '../../shared/components/Toast';
-import { faEyeSlash, faEye, faPen } from '@fortawesome/free-solid-svg-icons';
+import { faPen, faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { IClass } from '../../shared/models/class.model';
+import { ITuition } from '../../shared/models/tuition.model';
+import { IUser } from '../../shared/models/user.model';
+import { ISemester } from '../../shared/models/semester.model';
 
-interface IClassProps extends RouteComponentProps { }
+interface ITuitionProps extends RouteComponentProps { }
 
-const Class = (props: IClassProps) => {
+const Tuition = (props: ITuitionProps) => {
   const { history, match } = props;
   const dispatch = useDispatch();
-  const { selectAll } = classSelectors;
-  const allClasses = useSelector(selectAll);
-  const { initialState } = useSelector((state: RootState) => state.class);
-  // const { loading, deleteEntitySuccess, errorMessage, totalItems } = initialState;
+  const { selectAll } = tuitionSelectors;
+  const allTuitions = useSelector(selectAll);
+  const { initialState } = useSelector((state: RootState) => state.tuition);
   const { loading, deleteEntitySuccess, errorMessage } = initialState;
 
   const params = {
@@ -39,12 +40,37 @@ const Class = (props: IClassProps) => {
 
   useEffect(() => {
     if (deleteEntitySuccess) {
-      return ToastSuccess('Xóa lớp thành công!');
+      dispatch(resetEntity());
+      return ToastSuccess('Xóa học kì thành công!');
     }
     if (errorMessage) {
       return ToastError(errorMessage);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deleteEntitySuccess, errorMessage]);
+
+  const fields = [
+    { key: 'id', _style: { width: '25%' }, label: 'STT' },
+    { key: 'semester', _style: { width: '25%' }, label: 'Học kỳ' },
+    { key: 'user', _style: { width: '25%' }, label: 'Tên' },
+    { key: 'isPaid', _style: { width: '25%' }, label: 'Tình trạng' },
+    {
+      key: 'show_details',
+      label: '',
+      _style: { width: '1%' },
+      filter: false,
+    },
+  ];
+
+  const returnSemester = (semester: string | ISemester | undefined) => {
+    if (!semester || typeof semester === 'string') return '';
+    return semester.name;
+  };
+
+  const returnUser = (user: string | IUser | undefined) => {
+    if (!user || typeof user === 'string') return '';
+    return user.name;
+  };
 
   const [details, setDetails] = useState<Array<any>>([]);
 
@@ -59,27 +85,17 @@ const Class = (props: IClassProps) => {
     setDetails(newDetails);
   };
 
-  const fields = [
-    { key: 'id', _style: { width: '30%' }, label: 'STT' },
-    { key: 'name', _style: { width: '40%' }, label: 'Tên lớp' },
-    { key: 'grade', _style: { width: '40%' }, label: 'Khối' },
-    {
-      key: 'show_details',
-      label: '',
-      _style: { width: '1%' },
-      filter: false,
-    },
-  ];
+  console.log(allTuitions, 'allSemesters');
 
   return (
     <>
       <CButton color="primary" onClick={() => history.push(`${match.url}/create`)}>
-        Tạo lớp mới
+        Tạo học kỳ mới
       </CButton>
       <CCardBody>
         <CDataTable
           columnFilter={true}
-          items={allClasses}
+          items={allTuitions}
           fields={fields}
           tableFilter={{ label: 'Tìm kiếm', placeholder: 'Nhập từ khóa' }}
           hover
@@ -88,7 +104,7 @@ const Class = (props: IClassProps) => {
           loading={loading}
           itemsPerPageSelect={{ label: 'Số bản ghi mỗi trang', values: [25, 50, 75, 100, 200] }}
           scopedSlots={{
-            show_details: (item: IClass) => {
+            show_details: (item: ITuition) => {
               return (
                 <td className="d-flex">
                   <CTooltip content="Xem chi tiết" placement="bottom">
@@ -99,7 +115,7 @@ const Class = (props: IClassProps) => {
                       size="sm"
                       onClick={toggleDetails(item.id)}
                     >
-                      <FontAwesomeIcon icon={details.includes(item.id) ? faEyeSlash : faEye} />
+                      <FontAwesomeIcon icon={faEye} />
                     </CButton>
                   </CTooltip>
 
@@ -119,10 +135,16 @@ const Class = (props: IClassProps) => {
                 </td>
               );
             },
-            grade: (item: IClass) => {
-              return <td>{item.grade ? item.grade.name : 'Chưa xác định'}</td>;
+            user: (item: ITuition) => {
+              return <td>{returnUser(item.user)}</td>;
             },
-            details: (item: IClass) => {
+            semester: (item: ITuition) => {
+              return <td>{returnSemester(item.semester)}</td>;
+            },
+            isPaid: (item: ITuition) => {
+              return <td>{item.isPaid === false ? 'Chưa đóng tiền học' : 'Đã đóng tiền học'}</td>;
+            },
+            details: (item: ITuition) => {
               return (
                 <CCollapse show={details.includes(item.id)}>
                   <CCardBody>
@@ -138,21 +160,16 @@ const Class = (props: IClassProps) => {
                 </CCollapse>
               );
             },
+            // grade: (item: ITuition) => {
+            //   return (
+            //     <td>{item.grade?.name || "Không xác định"}</td>
+            //   )
+            // }
           }}
         />
-        {/* {totalPages > 1 ? (
-          <CPagination
-            disabled={loading}
-            activePage={filterState.page + 1}
-            pages={totalPages}
-            onActivePageChange={handlePaginationChange}
-          />
-        ) : (
-          ''
-        )} */}
       </CCardBody>
     </>
   );
 };
 
-export default Class;
+export default Tuition;

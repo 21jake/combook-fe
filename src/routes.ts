@@ -17,6 +17,10 @@ const ClassUpdate = React.lazy(() => import('./modules/class/ClassUpdate'));
 const Semester = React.lazy(() => import('./modules/semester/Semester'));
 const SemesterUpdate = React.lazy(() => import('./modules/semester/SemesterUpdate'));
 
+
+const Tuition = React.lazy(() => import('./modules/tuition/Tuition'));
+//const TuitionUpdate = React.lazy(() => import('./modules/tuition/TuitionUpdate'));
+
 const Result = React.lazy(() => import('./modules/result/Result'));
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -43,6 +47,11 @@ const routes = [
   { path: '/semesters', exact: true, name: 'Quản lý học kỳ', component: Semester },
   { path: '/semesters/create', name: 'Thêm mới', component: SemesterUpdate },
   { path: '/semesters/:id/update', name: 'Cập nhật', component: SemesterUpdate },
+
+  { path: '/tuitions', exact: true, name: 'Quản lý học phí', component: Tuition },
+  //{ path: '/tuitions/create', name: 'Thêm mới', component: TuitionUpdate },
+  //{ path: '/tuitions/:id/update', name: 'Cập nhật', component: TuitionUpdate },
+  //{ path: '/tuitions/:id/create-checkout-session', name: 'Đóng tiền', component: TuitionUpdate },
 
   { path: '/results', exact: true, name: 'Kết quả học tập', component: Result },
 ];
