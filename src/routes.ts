@@ -42,7 +42,7 @@ const routes = [
 
   { path: '/semesters', exact: true, name: 'Quản lý học kỳ', component: Semester },
   { path: '/semesters/create', name: 'Thêm mới', component: SemesterUpdate },
-  { path: '/semesters/:id/update', name: 'Cập nhật', component: SemesterUpdate },
+  { path: '/semesters/:_id/update', name: 'Cập nhật', component: SemesterUpdate },
 
   { path: '/results', exact: true, name: 'Kết quả học tập', component: Result },
 ];

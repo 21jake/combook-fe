@@ -78,7 +78,7 @@ const SemesterUpdate = ({ match, history }: ISemesterUpdate) => {
   useEffect(() => {
     if (updateEntitySuccess) {
       window.scrollTo(0, 0);
-      ToastSuccess(`${_id ? 'Cập nhật' : 'Tạo mới'} khối thành công!`);
+      ToastSuccess(`${_id ? 'Cập nhật' : 'Tạo mới'} học kỳ thành công!`);
       handleGoBack();
       dispatch(resetEntity());
     }

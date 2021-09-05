@@ -60,8 +60,6 @@ const Semester = (props: ISemesterProps) => {
     },
   ];
 
-  console.log(allSemesters, 'allSemesters');
-
   return (
     <>
       <CButton color="primary" onClick={() => history.push(`${match.url}/create`)}>

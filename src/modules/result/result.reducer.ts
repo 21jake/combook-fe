@@ -86,15 +86,18 @@ export const {
 
 export const resultSelectors = resultAdapter.getSelectors<RootState>((state) => state.result);
 
-const { selectById } = resultAdapter.getSelectors();
+const { selectById, selectAll } = resultAdapter.getSelectors();
 const getResultState = (rootState: RootState) => rootState.result;
 
 export const selectEntityById = (_id: string) => {
   return createSelector(getResultState, (state) => selectById(state, _id));
 };
 
-// export const selectActiveEntities = () => {
-//   return createSelector(getSubjectState, (state) =>
-//     selectAll(state).filter((entity) => entity.status === SharedStatus.ENABLE)
-//   );
-// };
+export const resultWithinGrade = (gradeId: string | undefined) => {
+  return createSelector(getResultState, (state) =>
+    selectAll(state).filter((entity) => {
+      if (typeof entity.student._class === "string") return false
+      return entity.student._class?.grade?._id === gradeId
+    })
+  );
+};

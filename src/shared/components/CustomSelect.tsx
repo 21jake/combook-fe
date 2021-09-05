@@ -21,10 +21,11 @@ interface ICustomSelectProps {
   isClearable?: boolean;
   onBlur?: () => void;
   placeholder?: string;
+  isWithinModal?: boolean;
 }
 
 export default (props: ICustomSelectProps) => {
-  const { onChange, options, value, defaultValue, isMulti, isDisabled, onBlur, isClearable, placeholder } =
+  const { onChange, options, value, defaultValue, isMulti, isDisabled, onBlur, isClearable, placeholder, isWithinModal } =
     props;
   // const getValue = (options: Array<IValue>, value: IValue) => {
   //     return options.find((option: IValue) => option.value === value.id);
@@ -94,7 +95,7 @@ export default (props: ICustomSelectProps) => {
       closeMenuOnSelect={!isMulti}
       isDisabled={isDisabled}
       menuPosition={'absolute'}
-      menuPortalTarget={document.body}
+      menuPortalTarget={!isWithinModal ? document.body : null}
       isRequired={true}
     />
   );
