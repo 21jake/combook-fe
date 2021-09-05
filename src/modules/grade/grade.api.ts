@@ -14,7 +14,7 @@ export const getEntities = createAsyncThunk('get-grades', async (params: IParams
     const result = hndleGetManyResp<IGrade>(await axios.get(`${prefix}`, { params }));
     thunkAPI.dispatch(gradeSetAll(result.entities));
     return result;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -27,7 +27,7 @@ export const getEntity = createAsyncThunk('get-grade', async (id: string, thunkA
     const resultArray = [entity]; // Have to put in an array so the Adapter can handle
     thunkAPI.dispatch(gradeSetAll(resultArray));
     return result.data;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -37,7 +37,7 @@ export const removeEntity = createAsyncThunk('delete-grade', async (_id: string,
     await axios.delete(`${prefix}/${_id}`);
     thunkAPI.dispatch(gradeRemoveOne(_id));
     return _id;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -54,7 +54,7 @@ export const updateEntity = createAsyncThunk(
         thunkAPI.dispatch(gradeUpdateOne({ id: _id, changes: entity }));
       }
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -66,7 +66,7 @@ export const createEntity = createAsyncThunk('create-grade', async (body: INewGr
     const entity = hndleGetOneResp<IGrade>(result);
     thunkAPI.dispatch(gradeAddOne(entity));
     return entity;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });

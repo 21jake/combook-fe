@@ -15,7 +15,7 @@ export const login = createAsyncThunk('login', async (body: IAuthenticateBody, t
     const result = await axios.post(`${prefix}/login`, body);
     setCookie('jwt', result.data.token, 7);
     return result.data;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -25,7 +25,7 @@ export const verify = createAsyncThunk('verify', async (_, thunkAPI) => {
     const result = await axios.get(`${prefix}/verify`);
     const entity = hndleVerifyResp<IAuth>(result);
     return entity;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -33,7 +33,7 @@ export const logout = createAsyncThunk('logout', async (_, thunkAPI) => {
   try {
     await axios.get(`${prefix}/logout`);
     return;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
