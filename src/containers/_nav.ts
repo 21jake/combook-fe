@@ -57,6 +57,13 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Kết quả học tập',
+    to:'/academic',
+    icon: 'cil-pencil',
+    className: handleItemVisibility(Role.STUDENT)
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Đăng xuất',
     icon: 'cil-account-logout',
     onClick: handleLogout,

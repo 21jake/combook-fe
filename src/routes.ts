@@ -20,6 +20,7 @@ const Semester = React.lazy(() => import('./modules/semester/Semester'));
 const SemesterUpdate = React.lazy(() => import('./modules/semester/SemesterUpdate'));
 
 const Result = React.lazy(() => import('./modules/result/Result'));
+const StudentResult = React.lazy(() => import('./modules/result/StudentResult'));
 
 
 // https://github.com/ReactTraining/react-router/tree/master/packages/react-router-config
@@ -48,6 +49,7 @@ const routes = [
   { path: '/semesters/:_id/update', name: 'Cập nhật', component: redirectIfUserUnauthorized(SemesterUpdate, Role.ADMIN) },
 
   { path: '/results', exact: true, name: 'Kết quả học tập', component: redirectIfUserUnauthorized(Result, Role.ADMIN, Role.TEACHER) },
+  { path: '/academic', exact: true, name: 'Kết quả học tập', component: redirectIfUserUnauthorized(StudentResult, Role.STUDENT) },
 ];
 
 export default routes;

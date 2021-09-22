@@ -61,7 +61,7 @@ const adminFields = [
 ];
 
 export interface IResultParams extends IParams {
-  semester: string;
+  semester?: string;
   student?: string;
   subject?: string | undefined;
 }

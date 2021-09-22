@@ -1,7 +1,6 @@
-import { intersection } from 'lodash';
 import React from 'react';
-import store from '../../store';
 import { Role } from '../../shared/enum/role';
+import store from '../../store';
 
 
 const Unauthorized = React.lazy(() => import('../error/Unauthorized'));

@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { uniqBy } from 'lodash';
 import { IGetEntitiesResp, IInitialState } from '../../shared/enum/shared-interfaces';
 import { IResult } from '../../shared/models/result.model';
 import { ISubject } from '../../shared/models/subject.model';
@@ -99,5 +100,34 @@ export const resultWithinGrade = (gradeId: string | undefined) => {
       if (typeof entity.student._class === "string") return false
       return entity.student._class?.grade?._id === gradeId
     })
+  );
+};
+
+export const selectGrades = () => {
+  return createSelector(getResultState, (state) =>
+    uniqBy(
+      selectAll(state).map(({semester}) => semester.grade),
+      'id'
+    )
+  );
+};
+export const selectSemesters = () => {
+  return createSelector(getResultState, (state) =>
+    uniqBy(
+      selectAll(state).map(({semester}) => semester),
+      'id'
+    )
+  );
+};
+
+const calculateAverage = ({score_type_1 , score_type_2 , score_type_3 , score_type_4 }: IResult) => {
+  if (!score_type_1  || !score_type_2 || !score_type_3 || !score_type_4) return null;
+  const result =  ((score_type_1 + score_type_2) + (score_type_3 * 2) + (score_type_4 * 3)) / 7;
+  return result
+}
+
+export const selectResultsBySemId = (semId: string | undefined) => {
+  return createSelector(getResultState, (state) =>
+      selectAll(state).filter(({semester}) => semester._id === semId).map((e) => ({...e, average: calculateAverage(e)}))
   );
 };

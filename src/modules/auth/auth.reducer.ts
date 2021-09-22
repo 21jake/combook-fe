@@ -37,9 +37,8 @@ const authenticationSlice = createSlice({
     },
   },
   extraReducers: {
-    [login.fulfilled.type]: (state, { payload }: PayloadAction<{ id_token: string }>) => {
-      localStorage.setItem('authentication_token', payload.id_token);
-      state.token = payload.id_token;
+    [login.fulfilled.type]: (state, { payload }: PayloadAction<{ token: string }>) => {
+      state.token = payload.token;
       state.errorMessage = null;
     },
     [login.rejected.type]: (state, { payload }: PayloadAction<{ message: string }>) => {
