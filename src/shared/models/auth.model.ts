@@ -1,4 +1,5 @@
 import { Role } from '../enum/role';
+import { IClass } from './class.model';
 import { ISubject } from './subject.model';
 
 export interface IAuth {
@@ -7,5 +8,7 @@ export interface IAuth {
   active: boolean;
   name: string;
   email: string;
-  subject?: ISubject
+  subject?: ISubject;
+  _class?: string | IClass,
+
 }

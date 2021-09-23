@@ -47,7 +47,6 @@ const { actions, reducer } = createSlice({
   extraReducers: {
     [getEntities.fulfilled.type]: (state, { payload }: PayloadAction<IGetEntitiesResp<IUser>>) => {
       state.initialState.totalItems = payload.total;
-      // console.log(payload);
       state.initialState.fetchEntitiesSuccess = true;
       state.initialState.loading = false;
     },

@@ -9,6 +9,7 @@ const GradeUpdate = React.lazy(() => import('./modules/grade/GradeUpdate'));
 
 const User = React.lazy(() => import('./modules/user/User'));
 const UserUpdate = React.lazy(() => import('./modules/user/UserUpdate'));
+const UserInfo = React.lazy(() => import('./modules/user-detail/UserDetail'));
 
 const Subject = React.lazy(() => import('./modules/subject/Subject'));
 const SubjectUpdate = React.lazy(() => import('./modules/subject/SubjectUpdate'));
@@ -39,6 +40,8 @@ const routes = [
   { path: '/users', exact: true, name: 'Quản lý người dùng', component: redirectIfUserUnauthorized(User, Role.ADMIN) },
   { path: '/users/:_id/update',  name: 'Cập nhật', component: redirectIfUserUnauthorized(UserUpdate, Role.ADMIN) },
   { path: '/users/create',  name: 'Thêm mới', component: redirectIfUserUnauthorized(UserUpdate, Role.ADMIN) },
+  
+  { path: '/info', exact: true, name: 'Thông tin người dùng', component: redirectIfUserUnauthorized(UserInfo, Role.ADMIN, Role.STUDENT, Role.TEACHER) },
 
   { path: '/classes', exact: true, name: 'Quản lý lớp', component: redirectIfUserUnauthorized(Class, Role.ADMIN) },
   { path: '/classes/create', name: 'Thêm mới', component: redirectIfUserUnauthorized(ClassUpdate, Role.ADMIN) },

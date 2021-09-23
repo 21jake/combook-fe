@@ -22,7 +22,6 @@ const App = () => {
   useEffect(() => {
     if (user && token) {
       ToastSuccess('Đăng nhập thành công');
-
     }
   }, [user, token]);
 

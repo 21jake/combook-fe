@@ -64,6 +64,12 @@ export default [
   },
   {
     _tag: 'CSidebarNavItem',
+    name: 'Thông tin người dùng',
+    to:'/info',
+    icon: 'cil-user'
+  },
+  {
+    _tag: 'CSidebarNavItem',
     name: 'Đăng xuất',
     icon: 'cil-account-logout',
     onClick: handleLogout,

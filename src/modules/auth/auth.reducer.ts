@@ -1,10 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { eraseCookie } from '../../shared/helpers';
 import { IAuth } from '../../shared/models/auth.model';
-import { login, verify, logout } from './auth.api';
+import { login, verify, logout, updatePassword } from './auth.api';
 
 interface IAuthenticationState {
   loginSuccess: boolean;
+  updatePasswordSuccess: boolean;
   loading: boolean;
   user: IAuth | null;
   token: string | null;
@@ -13,6 +14,7 @@ interface IAuthenticationState {
 
 const initialState: IAuthenticationState = {
   loginSuccess: false,
+  updatePasswordSuccess: false,
   loading: false,
   user: null,
   token: null,
@@ -31,10 +33,16 @@ const authenticationSlice = createSlice({
     reset(state) {
       state.loading = false;
       state.loginSuccess = false;
+      state.updatePasswordSuccess = false;
       state.user = null;
       state.token = null;
       state.errorMessage = null;
     },
+    softReset(state) {
+      state.loading = false;
+      state.updatePasswordSuccess = false;
+      state.errorMessage = null;
+    }
   },
   extraReducers: {
     [login.fulfilled.type]: (state, { payload }: PayloadAction<{ token: string }>) => {
@@ -45,6 +53,15 @@ const authenticationSlice = createSlice({
       state.errorMessage = payload?.message;
       state.loginSuccess = false;
       state.loading = false;
+    },
+    [updatePassword.fulfilled.type]: (state, { payload }: PayloadAction<IAuth>) => {
+      state.updatePasswordSuccess = true;
+      state.loading = false;
+    },
+    [updatePassword.rejected.type]: (state, { payload }: PayloadAction<{message: string}>) => {
+      state.errorMessage = payload.message;
+      state.loading = false;
+      state.updatePasswordSuccess = false;
     },
     [verify.fulfilled.type]: (state, { payload }: PayloadAction<IAuth>) => {
       state.user = payload;
@@ -61,15 +78,15 @@ const authenticationSlice = createSlice({
       state.loginSuccess = false;
       state.errorMessage = null;
       state.loading = false;
-
       window.location.reload();
     },
     [logout.rejected.type]: (state, { payload }) => {
       state.loginSuccess = false;
       state.loading = false;
     },
+    
   },
 });
 
 export default authenticationSlice.reducer;
-export const { fetching, reset } = authenticationSlice.actions;
+export const { fetching, reset, softReset } = authenticationSlice.actions;
