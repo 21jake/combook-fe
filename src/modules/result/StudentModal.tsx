@@ -1,15 +1,24 @@
 import {
-    CBadge, CCol, CDataTable, CFormGroup, CInput, CLabel,
-    CModal,
-    CModalBody,
-    CModalHeader,
-    CModalTitle,
-    CRow
+  CBadge,
+  CCol,
+  CDataTable,
+  CFormGroup,
+  CInput,
+  CLabel,
+  CModal,
+  CModalBody,
+  CModalHeader,
+  CModalTitle,
+  CRow,
 } from '@coreui/react';
 import { capitalize, sumBy } from 'lodash';
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { mapStudentBadge, mapStudentType, returnTypeBaseOnAverage } from '../../shared/enum/studentType';
+import {
+  mapStudentBadge,
+  mapStudentType,
+  returnTypeBaseOnAverage,
+} from '../../shared/enum/studentType';
 import { IResult } from '../../shared/models/result.model';
 import { RootState } from '../../shared/reducers';
 import { selectResultsBySemId } from './result.reducer';
@@ -30,19 +39,18 @@ interface IModalProps {
   semester: string | undefined;
 }
 
-
-
 const StudentModal = ({ isVisible, onAbort, semester }: IModalProps) => {
   const results = useSelector(selectResultsBySemId(semester));
   const { user } = useSelector((state: RootState) => state.authentication);
 
   const semesterName = results.length ? results[0].semester.name : '';
 
-  const semesterAverage = (sumBy(results, 'average') / results.length);
+  const semesterAverage = sumBy(results, 'average') / results.length;
 
-    const studentType = returnTypeBaseOnAverage(semesterAverage)
+  const isGradingFinished = Boolean(!results.find(({ average }) => average === null));
 
-
+  const studentType = returnTypeBaseOnAverage(semesterAverage);
+  console.log(results, 'results');
 
   return (
     <CModal show={isVisible} color="primary" onClose={onAbort} size={'xl'}>
@@ -62,26 +70,34 @@ const StudentModal = ({ isVisible, onAbort, semester }: IModalProps) => {
                 <CInput value={user?.name || ''} readOnly />
               </CCol>
             </CFormGroup>
-            <CFormGroup row>
-              <CCol md="3">
-                <CLabel className="font-weight-bold" htmlFor="average">
-                  Điểm trung bình
-                </CLabel>
-              </CCol>
-              <CCol xs="12" md="9">
-                <CInput value={semesterAverage.toPrecision(2)} readOnly />
-              </CCol>
-            </CFormGroup>
-            <CFormGroup row>
-              <CCol md="3">
-                <CLabel className="font-weight-bold" htmlFor="type">
-                  Xếp loại học lực
-                </CLabel>
-              </CCol>
-              <CCol xs="12" md="9">
-              <CBadge color={mapStudentBadge[studentType]}>{capitalize(mapStudentType[studentType])}</CBadge>
-              </CCol>
-            </CFormGroup>
+            {isGradingFinished ? (
+              <>
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel className="font-weight-bold" htmlFor="average">
+                      Điểm trung bình
+                    </CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CInput value={semesterAverage.toPrecision(2)} readOnly />
+                  </CCol>
+                </CFormGroup>
+                <CFormGroup row>
+                  <CCol md="3">
+                    <CLabel className="font-weight-bold" htmlFor="type">
+                      Xếp loại học lực
+                    </CLabel>
+                  </CCol>
+                  <CCol xs="12" md="9">
+                    <CBadge color={mapStudentBadge[studentType]}>
+                      {capitalize(mapStudentType[studentType])}
+                    </CBadge>
+                  </CCol>
+                </CFormGroup>
+              </>
+            ) : (
+              ''
+            )}
           </CCol>
 
           <CCol xs={12}>
@@ -105,8 +121,9 @@ const StudentModal = ({ isVisible, onAbort, semester }: IModalProps) => {
                 score_type_2: ({ score_type_2 }: IResult) => <td>{score_type_2 || '_'}</td>,
                 score_type_3: ({ score_type_3 }: IResult) => <td>{score_type_3 || '_'}</td>,
                 score_type_4: ({ score_type_4 }: IResult) => <td>{score_type_4 || '_'}</td>,
-                average: ({ average }: IResult) => <td>{average ? average.toPrecision(2)  : '_'}</td>,
-
+                average: ({ average }: IResult) => (
+                  <td>{average ? average.toPrecision(2) : '_'}</td>
+                ),
               }}
             />
           </CCol>
