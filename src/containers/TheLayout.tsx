@@ -24,6 +24,7 @@ const TheLayout = ({ history }: ITheLayout) => {
       dispatch(toggleIsFirstTime());
       ToastInfo("Vui lòng cập nhật mật khẩu!");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFirstTime]);
 
   const redirectBackUserByType = (user: IAuth) => {

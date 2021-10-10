@@ -54,7 +54,7 @@ const initialPasswordValues: IUpdatePasswordBody = {
   passwordConfirm: '',
 };
 
-const UserDetail = ({history}: IUserDetailProps) => {
+const UserDetail = (prop: IUserDetailProps) => {
   const dispatch = useDispatch();
   const { user, loading, errorMessage, updatePasswordSuccess } = useSelector((state: RootState) => state.authentication);
 
@@ -63,6 +63,7 @@ const UserDetail = ({history}: IUserDetailProps) => {
       ToastSuccess('Cập nhật mật khẩu thành công');
       dispatch(softReset());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatePasswordSuccess]);
 
   useEffect(() => {
@@ -70,6 +71,7 @@ const UserDetail = ({history}: IUserDetailProps) => {
       ToastError(errorMessage);
       dispatch(softReset());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage]);
 
   return (

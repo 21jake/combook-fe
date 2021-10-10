@@ -46,6 +46,7 @@ const Login = ({ location }: ILogin) => {
       dispatch(fetching());
       dispatch(verify());
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname, search]);
 
   const dispatch = useDispatch();
@@ -72,6 +73,7 @@ const Login = ({ location }: ILogin) => {
     if (errorMessage) {
       ToastError(errorMessage);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage]);
 
   const initialValues: FormValues = { email: '', password: '' };

@@ -50,7 +50,6 @@ const StudentModal = ({ isVisible, onAbort, semester }: IModalProps) => {
   const isGradingFinished = Boolean(!results.find(({ average }) => average === null));
 
   const studentType = returnTypeBaseOnAverage(semesterAverage);
-  console.log(results, 'results');
 
   return (
     <CModal show={isVisible} color="primary" onClose={onAbort} size={'xl'}>
