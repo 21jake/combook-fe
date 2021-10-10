@@ -1,12 +1,11 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
-import { toggleIsFirstTime } from '../modules/auth/auth.reducer';
 import { ToastInfo } from '../shared/components/Toast';
 import { Role } from '../shared/enum/role';
 import { IAuth } from '../shared/models/auth.model';
 import { RootState } from '../shared/reducers';
-import { TheContent, TheSidebar, TheAside, TheFooter, TheHeader } from './index';
+import { TheAside, TheContent, TheFooter, TheHeader, TheSidebar } from './index';
 
 interface ITheLayout extends RouteComponentProps {}
 
@@ -16,13 +15,11 @@ const TheLayout = ({ history }: ITheLayout) => {
     (state: RootState) => state.authentication
   );
   const { darkMode } = containerState;
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (isFirstTime) {
       history.push('/info');
-      dispatch(toggleIsFirstTime());
-      ToastInfo("Vui lòng cập nhật mật khẩu!");
+      ToastInfo('Vui lòng cập nhật mật khẩu!');
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFirstTime]);

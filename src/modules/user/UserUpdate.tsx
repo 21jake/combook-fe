@@ -329,7 +329,7 @@ const UserUpdate = ({ match, history }: IUserUpdate) => {
                     <CButton type="submit" size="sm" color="primary" disabled={loading}>
                       <CIcon name="cil-scrubber" /> Xác nhận
                     </CButton>
-                    <CButton size="sm" color="danger" className="ml-3" onClick={handleGoBack}>
+                    <CButton size="sm" color="danger" className="ml-3" onClick={handleGoBack} disabled={loading}>
                       <CIcon name="cil-arrow-left" /> Quay lại
                     </CButton>
                   </CCardFooter>

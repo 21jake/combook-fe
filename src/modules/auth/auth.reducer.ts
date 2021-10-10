@@ -75,7 +75,8 @@ const authenticationSlice = createSlice({
       state.errorMessage = null;
       state.loading = false;
     },
-    [verify.rejected.type]: (state, { payload }) => {
+    [verify.rejected.type]: (state, { payload } : PayloadAction<{ message: string }>) => {
+      state.errorMessage = payload?.message;
       state.loginSuccess = false;
       state.loading = false;
     },

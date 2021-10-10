@@ -21,7 +21,9 @@ import { Formik } from 'formik';
 import CIcon from '@coreui/icons-react';
 import { ToastError, ToastSuccess } from '../../shared/components/Toast';
 import { updatePassword } from '../auth/auth.api';
-import { fetching, softReset } from '../auth/auth.reducer';
+import { fetching, softReset, toggleIsFirstTime } from '../auth/auth.reducer';
+import { DEFAULT_PASSWORD } from '../../config/constants';
+import { IAuth } from '../../shared/models/auth.model';
 
 interface IUserDetailProps extends RouteComponentProps {}
 
@@ -48,20 +50,43 @@ const validationSchema = Yup.object().shape({
     }),
 });
 
-const initialPasswordValues: IUpdatePasswordBody = {
-  currentPassword: '',
-  password: '',
-  passwordConfirm: '',
-};
-
-const UserDetail = (prop: IUserDetailProps) => {
+const UserDetail = ({ history }: IUserDetailProps) => {
   const dispatch = useDispatch();
-  const { user, loading, errorMessage, updatePasswordSuccess } = useSelector((state: RootState) => state.authentication);
+  const { user, loading, errorMessage, updatePasswordSuccess, isFirstTime } = useSelector(
+    (state: RootState) => state.authentication
+  );
+
+  const initialPasswordValues: IUpdatePasswordBody = {
+    currentPassword: isFirstTime ? DEFAULT_PASSWORD : '',
+    password: '',
+    passwordConfirm: '',
+  };
+
+  const redirectBackUserByType = (user: IAuth | null) => {
+    if (!user) return;
+    switch (user.role) {
+      case Role.ADMIN:
+        history.push('/users');
+        break;
+      case Role.TEACHER:
+        history.push('/results');
+        break;
+      case Role.STUDENT:
+        history.push('/academic');
+        break;
+      default:
+        return;
+    }
+  };
 
   useEffect(() => {
     if (updatePasswordSuccess) {
       ToastSuccess('Cập nhật mật khẩu thành công');
+      if (isFirstTime) {
+        dispatch(toggleIsFirstTime());
+      }
       dispatch(softReset());
+      redirectBackUserByType(user);      
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updatePasswordSuccess]);
@@ -138,25 +163,30 @@ const UserDetail = (prop: IUserDetailProps) => {
                     ) : (
                       ''
                     )}
-                    <CFormGroup row>
-                      <CCol md="3">
-                        <CLabel className="font-weight-bold" htmlFor="currentPassword">
-                          Mật khẩu hiện tại
-                        </CLabel>
-                      </CCol>
-                      <CCol xs="12" md="9">
-                        <CInput
-                          onChange={handleChange}
-                          type="password"
-                          id="currentPassword"
-                          name="currentPassword"
-                          value={values.currentPassword}
-                          invalid={!!errors.currentPassword && touched.currentPassword}
-                          onBlur={handleBlur}
-                        />
-                        <CInvalidFeedback>{errors.currentPassword}</CInvalidFeedback>
-                      </CCol>
-                    </CFormGroup>
+                    {!isFirstTime ? (
+                      <CFormGroup row>
+                        <CCol md="3">
+                          <CLabel className="font-weight-bold" htmlFor="currentPassword">
+                            Mật khẩu hiện tại
+                          </CLabel>
+                        </CCol>
+                        <CCol xs="12" md="9">
+                          <CInput
+                            onChange={handleChange}
+                            type="password"
+                            id="currentPassword"
+                            name="currentPassword"
+                            value={values.currentPassword}
+                            invalid={!!errors.currentPassword && touched.currentPassword}
+                            onBlur={handleBlur}
+                          />
+                          <CInvalidFeedback>{errors.currentPassword}</CInvalidFeedback>
+                        </CCol>
+                      </CFormGroup>
+                    ) : (
+                      ''
+                    )}
+
                     <CFormGroup row>
                       <CCol md="3">
                         <CLabel className="font-weight-bold" htmlFor="password">
@@ -196,8 +226,8 @@ const UserDetail = (prop: IUserDetailProps) => {
                       </CCol>
                     </CFormGroup>
                     <CRow>
-                    <CCol md="3"></CCol>
-                    <CCol xs="12" md="9">
+                      <CCol md="3"></CCol>
+                      <CCol xs="12" md="9">
                         <CButton type="submit" size="sm" color="primary" disabled={loading}>
                           <CIcon name="cil-scrubber" /> Xác nhận
                         </CButton>
