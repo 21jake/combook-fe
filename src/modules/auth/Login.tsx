@@ -152,11 +152,6 @@ const Login = ({ location }: ILogin) => {
                         Xác nhận
                       </CButton>
                     </CCol>
-                    <CCol xs="6" className="text-right">
-                      <CButton color="link" className="px-0">
-                        Quên mật khẩu?
-                      </CButton>
-                    </CCol>
                   </CRow>
                 </CForm>
               )}
