@@ -2,26 +2,6 @@
   "name": "Combook-FE",
   "version": "3.0.1",
   "description": "Combook-FE",
-  "author": {
-    "name": "Core UI",
-    "url": "https://coreui.io",
-    "github": "https://github.com/coreui",
-    "twitter": "https://twitter.com/core_ui"
-  },
-  "contributors": [
-    {
-      "name": "Core UI Team",
-      "url": "https://github.com/orgs/coreui/people"
-    }
-  ],
-  "homepage": ".",
-  "copyright": "Copyright 2017-2020 creativeLabs Łukasz Holeczek",
-  "license": "https://coreui.io/pro/license/",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:coreui/coreui-pro-react-admin-template-starter-ts.git"
-  },
   "dependencies": {
     "@coreui/coreui-pro": "^3.2.2",
     "@coreui/icons": "^2.0.0-beta.4",
