@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { RouteComponentProps } from 'react-router-dom';
+import { toggleIsFirstTime } from '../modules/auth/auth.reducer';
+import { ToastInfo } from '../shared/components/Toast';
 import { Role } from '../shared/enum/role';
 import { IAuth } from '../shared/models/auth.model';
 import { RootState } from '../shared/reducers';
@@ -10,8 +12,19 @@ interface ITheLayout extends RouteComponentProps {}
 
 const TheLayout = ({ history }: ITheLayout) => {
   const containerState = useSelector((state: RootState) => state.container);
-  const { loginSuccess, token, user } = useSelector((state: RootState) => state.authentication);
+  const { loginSuccess, token, user, isFirstTime } = useSelector(
+    (state: RootState) => state.authentication
+  );
   const { darkMode } = containerState;
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isFirstTime) {
+      history.push('/info');
+      dispatch(toggleIsFirstTime());
+      ToastInfo("Vui lòng cập nhật mật khẩu!");
+    }
+  }, [isFirstTime]);
 
   const redirectBackUserByType = (user: IAuth) => {
     switch (user.role) {

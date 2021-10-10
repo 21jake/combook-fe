@@ -10,6 +10,7 @@ interface IAuthenticationState {
   user: IAuth | null;
   token: string | null;
   errorMessage: string | null;
+  isFirstTime: boolean;
 }
 
 const initialState: IAuthenticationState = {
@@ -19,6 +20,7 @@ const initialState: IAuthenticationState = {
   user: null,
   token: null,
   errorMessage: null,
+  isFirstTime: false,
 };
 
 // export type IAuthentication = Readonly<typeof initialState>;
@@ -37,11 +39,15 @@ const authenticationSlice = createSlice({
       state.user = null;
       state.token = null;
       state.errorMessage = null;
+      state.isFirstTime = false;
     },
     softReset(state) {
       state.loading = false;
       state.updatePasswordSuccess = false;
       state.errorMessage = null;
+    },
+    toggleIsFirstTime(state) {
+      state.isFirstTime = !state.isFirstTime;
     }
   },
   extraReducers: {
@@ -89,4 +95,4 @@ const authenticationSlice = createSlice({
 });
 
 export default authenticationSlice.reducer;
-export const { fetching, reset, softReset } = authenticationSlice.actions;
+export const { fetching, reset, softReset, toggleIsFirstTime } = authenticationSlice.actions;

@@ -58,12 +58,10 @@ const UserDetail = ({history}: IUserDetailProps) => {
   const dispatch = useDispatch();
   const { user, loading, errorMessage, updatePasswordSuccess } = useSelector((state: RootState) => state.authentication);
 
-
   useEffect(() => {
     if (updatePasswordSuccess) {
       ToastSuccess('Cập nhật mật khẩu thành công');
       dispatch(softReset());
-      history.push("/")
     }
   }, [updatePasswordSuccess]);
 

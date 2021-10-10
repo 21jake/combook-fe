@@ -30,6 +30,7 @@ import { mapRole, Role, roleArray } from '../../shared/enum/role';
 import { subjectSelectors } from '../subject/subject.reducer';
 import { classSelectors } from '../class/class.reducer';
 import { ISubject } from '../../shared/models/subject.model';
+import { DEFAULT_PASSWORD } from '../../config/constants';
 
 interface IUserUpdateParams {
   [x: string]: string;
@@ -47,8 +48,8 @@ const UserUpdate = ({ match, history }: IUserUpdate) => {
     _class: undefined,
     subject: undefined,
     role: Role.STUDENT,
-    password: '123456789',
-    passwordConfirm: '123456789',
+    password: DEFAULT_PASSWORD,
+    passwordConfirm: DEFAULT_PASSWORD,
   };
 
   const subjects = useSelector(subjectSelectors.selectAll);
