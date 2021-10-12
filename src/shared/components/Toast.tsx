@@ -1,35 +1,40 @@
-import { faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
-import { toast, ToastOptions } from 'react-toastify';
-
+import { faCheckCircle, faExclamationTriangle, faInfoCircle } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from "react";
+import { toast, ToastOptions } from "react-toastify";
 
 export const centerToast: ToastOptions = {
-  position: 'top-center',
+  position: "top-center",
   autoClose: 5000,
   hideProgressBar: true,
   closeOnClick: true,
   pauseOnHover: true,
   draggable: true,
-  progress: undefined
+  progress: undefined,
 };
 
-
-interface IProp  {
-   message: string
+interface IProp {
+  message: string;
 }
 
-const Success = (prop: IProp)  => (
-  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+const Success = (prop: IProp) => (
+  <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
     <FontAwesomeIcon className="toastSuccessIcon" icon={faCheckCircle} size="lg" color="#45D42D" />
-    <div style={{ color: '#333333', marginLeft: '5px' }}>{prop.message}</div>
+    <div style={{ color: "#333333", marginLeft: "5px" }}>{prop.message}</div>
   </div>
 );
 
 const Error = (prop: IProp) => (
-  <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
+  <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
     <FontAwesomeIcon className="toastSuccessIcon" icon={faExclamationTriangle} size="lg" color="#DC3545" />
-    <div style={{ color: '#DC3545', marginLeft: '5px' }}>{prop.message}</div>
+    <div style={{ color: "#DC3545", marginLeft: "5px" }}>{prop.message}</div>
+  </div>
+);
+
+const Info = (prop: IProp) => (
+  <div style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start" }}>
+    <FontAwesomeIcon className="toastSuccessIcon" icon={faInfoCircle} size="lg" color="#007bff" />
+    <div style={{ color: "#333333", marginLeft: "5px" }}>{prop.message}</div>
   </div>
 );
 
@@ -42,5 +47,11 @@ export const ToastSuccess = (message: string) => {
 export const ToastError = (message: string) => {
   if (message) {
     toast(<Error message={message} />, centerToast);
+  }
+};
+
+export const ToastInfo = (message: string) => {
+  if (message) {
+    toast(<Info message={message} />, centerToast);
   }
 };

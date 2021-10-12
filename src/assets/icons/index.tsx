@@ -16,6 +16,7 @@ import {
   cilCalendar,
   cilPencil,
   cilMoney
+  cilUser,
 } from '@coreui/icons/js/free';
 
 import { cibElasticStack } from '@coreui/icons-pro';
@@ -29,6 +30,7 @@ export const icons = Object.assign(
   },
   {
     cilApplicationsSettings,
+    cilUser,
     cilSpeedometer,
     cilSun,
     cilMoon,

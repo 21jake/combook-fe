@@ -13,7 +13,7 @@ export const getEntities = createAsyncThunk('get-semesters', async (params: IPar
     const result = hndleGetManyResp<ISemester>(await axios.get(`${prefix}`, { params }));
     thunkAPI.dispatch(semesterSetAll(result.entities));
     return result;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -26,7 +26,7 @@ export const getEntity = createAsyncThunk('get-semester', async (id: string, thu
     const resultArray = [entity]; // Have to put in an array so the Adapter can handle
     thunkAPI.dispatch(semesterSetAll(resultArray));
     return result.data;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -36,7 +36,7 @@ export const removeEntity = createAsyncThunk('delete-semester', async (_id: stri
     await axios.delete(`${prefix}/${_id}`);
     thunkAPI.dispatch(semesterRemoveOne(_id));
     return _id;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -53,7 +53,7 @@ export const updateEntity = createAsyncThunk(
         thunkAPI.dispatch(semesterUpdateOne({ id: _id, changes: entity }));
       }
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -65,7 +65,7 @@ export const createEntity = createAsyncThunk('create-semester', async (body: INe
     const entity = hndleGetOneResp<ISemester>(result);
     thunkAPI.dispatch(semesterAddOne(entity));
     return entity;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });

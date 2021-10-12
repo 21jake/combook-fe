@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit';
+import { uniqBy } from 'lodash';
 import { IGetEntitiesResp, IInitialState } from '../../shared/enum/shared-interfaces';
 import { ISemester } from '../../shared/models/semester.model';
 import { RootState } from '../../shared/reducers';
@@ -46,7 +47,10 @@ const { actions, reducer } = createSlice({
     removeOne: semesterAdapter.removeOne,
   },
   extraReducers: {
-    [getEntities.fulfilled.type]: (state, { payload }: PayloadAction<IGetEntitiesResp<ISemester>>) => {
+    [getEntities.fulfilled.type]: (
+      state,
+      { payload }: PayloadAction<IGetEntitiesResp<ISemester>>
+    ) => {
       state.initialState.totalItems = payload.total;
       // console.log(payload);
       state.initialState.fetchEntitiesSuccess = true;
@@ -109,15 +113,18 @@ export const {
 
 export const semesterSelectors = semesterAdapter.getSelectors<RootState>((state) => state.semester);
 
-const { selectById } = semesterAdapter.getSelectors();
+const { selectById, selectAll } = semesterAdapter.getSelectors();
 const getSemesterState = (rootState: RootState) => rootState.semester;
 
 export const selectEntityById = (_id: string) => {
   return createSelector(getSemesterState, (state) => selectById(state, _id));
 };
 
-// export const selectActiveEntities = () => {
-//   return createSelector(getGradeState, (state) =>
-//     selectAll(state).filter((entity) => entity.status === SharedStatus.ENABLE)
-//   );
-// };
+export const selectGrades = () => {
+  return createSelector(getSemesterState, (state) =>
+    uniqBy(
+      selectAll(state).map((e) => e.grade),
+      'id'
+    )
+  );
+};

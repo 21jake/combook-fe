@@ -12,7 +12,7 @@ export const getEntities = createAsyncThunk(`get-all-${prefix}`, async (params: 
     const result = hndleGetManyResp<ISubject>(await axios.get(`${prefix}`, { params }));
     thunkAPI.dispatch(setAll(result.entities));
     return result;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -25,7 +25,7 @@ export const getEntity = createAsyncThunk(`get-one-${prefix}`, async (id: string
     const resultArray = [entity]; // Have to put in an array so the Adapter can handle
     thunkAPI.dispatch(setAll(resultArray));
     return result.data;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -35,7 +35,7 @@ export const removeEntity = createAsyncThunk(`delete-one-${prefix}`, async (_id:
     await axios.delete(`${prefix}/${_id}`);
     thunkAPI.dispatch(removeOne(_id));
     return _id;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });
@@ -52,7 +52,7 @@ export const updateEntity = createAsyncThunk(
         thunkAPI.dispatch(updateOne({ id: _id, changes: entity }));
       }
       return result.data;
-    } catch (error) {
+    } catch (error: any) {
       return thunkAPI.rejectWithValue(error.response.data);
     }
   }
@@ -64,7 +64,7 @@ export const createEntity = createAsyncThunk(`create-one-${prefix}`, async (body
     const entity = hndleGetOneResp<ISubject>(result);
     thunkAPI.dispatch(addOne(entity));
     return entity;
-  } catch (error) {
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.response.data);
   }
 });

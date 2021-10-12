@@ -16,7 +16,7 @@ import {
 } from '@coreui/react';
 import CIcon from '@coreui/icons-react';
 import { freeSet } from '@coreui/icons';
-import { fetching } from './auth.reducer';
+import { fetching, toggleIsFirstTime } from './auth.reducer';
 import { Formik } from 'formik';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -24,14 +24,31 @@ import { toggleSidebar } from '../../containers/reducer';
 import { login, verify } from './auth.api';
 import { ToastError } from '../../shared/components/Toast';
 import { RootState } from '../../shared/reducers';
-import { getCookie } from '../../shared/helpers';
+import { getCookie, setCookie } from '../../shared/helpers';
+import { RouteComponentProps } from 'react-router-dom';
 
 interface FormValues {
   email: string;
   password: string;
 }
 
-const Login = () => {
+interface ILogin extends RouteComponentProps {}
+
+const Login = ({ location }: ILogin) => {
+  const { pathname, search } = location;
+
+  useEffect(() => {
+    // Handle if this is the first time user enters the system
+    if (pathname === '/init' && search.length) {
+      const jwt = search.substring(1);
+      setCookie('jwt', jwt, 7);
+      dispatch(toggleIsFirstTime());
+      dispatch(fetching());
+      dispatch(verify());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname, search]);
+
   const dispatch = useDispatch();
   const authenticationState = useSelector((state: RootState) => state.authentication);
   const { loading, token, errorMessage } = authenticationState;
@@ -56,6 +73,7 @@ const Login = () => {
     if (errorMessage) {
       ToastError(errorMessage);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [errorMessage]);
 
   const initialValues: FormValues = { email: '', password: '' };
@@ -134,11 +152,6 @@ const Login = () => {
                     <CCol xs="6">
                       <CButton type="submit" disabled={loading} color="info" className="px-4">
                         Xác nhận
-                      </CButton>
-                    </CCol>
-                    <CCol xs="6" className="text-right">
-                      <CButton color="link" className="px-0">
-                        Quên mật khẩu?
                       </CButton>
                     </CCol>
                   </CRow>
