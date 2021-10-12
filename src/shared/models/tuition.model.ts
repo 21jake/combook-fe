@@ -3,8 +3,8 @@ import { IUser } from './user.model';
 
 export interface ITuition {
     id: string;
-    semester?: string | ISemester;
-    user?: string | IUser;
+    semester?: ISemester;
+    user?: IUser;
     isPaid: Boolean;
 }
 
