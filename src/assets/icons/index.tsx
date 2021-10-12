@@ -15,6 +15,7 @@ import {
   cilPeople,
   cilCalendar,
   cilPencil,
+  cilMoney
   cilUser,
 } from '@coreui/icons/js/free';
 
@@ -41,7 +42,8 @@ export const icons = Object.assign(
     cilBook,
     cilPeople,
     cilCalendar,
-    cilPencil
+    cilPencil,
+    cilMoney
   }
 );
 // cil-account-logout

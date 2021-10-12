@@ -20,6 +20,10 @@ const ClassUpdate = React.lazy(() => import('./modules/class/ClassUpdate'));
 const Semester = React.lazy(() => import('./modules/semester/Semester'));
 const SemesterUpdate = React.lazy(() => import('./modules/semester/SemesterUpdate'));
 
+
+const Tuition = React.lazy(() => import('./modules/tuition/Tuition'));
+//const TuitionUpdate = React.lazy(() => import('./modules/tuition/TuitionUpdate'));
+
 const Result = React.lazy(() => import('./modules/result/Result'));
 const StudentResult = React.lazy(() => import('./modules/result/StudentResult'));
 
@@ -50,7 +54,12 @@ const routes = [
   { path: '/semesters', exact: true, name: 'Quản lý học kỳ', component: redirectIfUserUnauthorized(Semester, Role.ADMIN) },
   { path: '/semesters/create', name: 'Thêm mới', component: redirectIfUserUnauthorized(SemesterUpdate, Role.ADMIN) },
   { path: '/semesters/:_id/update', name: 'Cập nhật', component: redirectIfUserUnauthorized(SemesterUpdate, Role.ADMIN) },
+  { path: '/tuitions', exact: true, name: 'Quản lý học phí', component: Tuition },
+  { path: '/tuitions/create', name: 'Thêm mới', component: TuitionUpdate },
+  { path: '/tuitions/:id/update', name: 'Cập nhật', component: TuitionUpdate },
+  { path: '/tuitions/:id/create-checkout-session', name: 'Đóng tiền', component: TuitionUpdate },
 
+  { path: '/results', exact: true, name: 'Kết quả học tập', component: Result },
   { path: '/results', exact: true, name: 'Kết quả học tập', component: redirectIfUserUnauthorized(Result, Role.ADMIN, Role.TEACHER) },
   { path: '/academic', exact: true, name: 'Kết quả học tập', component: redirectIfUserUnauthorized(StudentResult, Role.STUDENT) },
 ];
